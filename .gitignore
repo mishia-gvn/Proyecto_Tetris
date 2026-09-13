@@ -1,0 +1,20 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Compilación
+x64/
+Debug/
+Release/
+
+# Archivos generados
+*.obj
+*.pdb
+*.ilk
+*.exe
+*.dll
+
+# SFML
+Tetris/Tetris/include/
+Tetris/Tetris/lib/
