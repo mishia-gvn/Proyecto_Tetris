@@ -145,7 +145,28 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Piece.cpp" />
+    <ClCompile Include="RowList.cpp" />
+    <ClCompile Include="Sorting.cpp" />
     <ClCompile Include="Tetris.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Board.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="Cola.h" />
+    <ClInclude Include="ColaEvent.h" />
+    <ClInclude Include="Constants.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameRenderer.h" />
+    <ClInclude Include="Piece.h" />
+    <ClInclude Include="RowList.h" />
+    <ClInclude Include="MovementList.h" />
+    <ClInclude Include="Pila.h" />
+    <ClInclude Include="GameText.h" />
+    <ClInclude Include="Sorting.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

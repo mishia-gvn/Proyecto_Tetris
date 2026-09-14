@@ -13,16 +13,16 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Estructuras">
-      <UniqueIdentifier>{e0cf706a-0661-44f1-aa49-900c2f385a01}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Juego">
+    <Filter Include="Game">
       <UniqueIdentifier>{a9a0c464-1b58-41d2-880e-5c80c89d2171}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Interfaz">
+    <Filter Include="Structures">
+      <UniqueIdentifier>{e0cf706a-0661-44f1-aa49-900c2f385a01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface">
       <UniqueIdentifier>{524f4b7c-eed2-4ef7-a117-ac432acb7135}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Ordenamiento">
+    <Filter Include="Sorting">
       <UniqueIdentifier>{ea7866f7-3440-481c-9374-fe4cc800e484}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -30,5 +30,64 @@
     <ClCompile Include="Tetris.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="Piece.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Board.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Sorting.cpp">
+      <Filter>Sorting</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="RowList.cpp">
+      <Filter>Structures</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Constants.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Cola.h">
+      <Filter>Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Pila.h">
+      <Filter>Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="RowList.h">
+      <Filter>Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="MovementList.h">
+      <Filter>Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="ColaEvent.h">
+      <Filter>Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="GameRenderer.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="GameText.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Piece.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Board.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Sorting.h">
+      <Filter>Sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
