@@ -23,5 +23,7 @@ public:
 
 	int getCell(int row, int col) const;
 	void setCell(int row, int col, int value);
+
+	void copyRow(int source, int destination);
 };
 

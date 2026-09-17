@@ -36,14 +36,11 @@
     <ClCompile Include="Board.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Sorting.cpp">
-      <Filter>Sorting</Filter>
+    <ClCompile Include="RowList.cpp">
+      <Filter>Structures</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="RowList.cpp">
-      <Filter>Structures</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

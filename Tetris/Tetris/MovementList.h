@@ -1,27 +1,27 @@
 #pragma once
 
+enum MovementType {
+    LEFT,
+    RIGHT,
+    DOWN,
+    ROTATE,
+    HARD_DROP
+};
+
+struct Node {
+    MovementType movement;
+    Node* previous;
+    Node* next;
+
+    Node(MovementType movement) {
+        this->movement = movement;
+        previous = nullptr;
+        next = nullptr;
+    }
+};
+
 class MovementList{
 private:
-
-    enum MovementType{
-        LEFT,
-        RIGHT,
-        DOWN,
-        ROTATE,
-        HARD_DROP
-    };
-
-    struct Node{
-        MovementType movement;
-        Node* previous;
-        Node* next;
-
-        Node(MovementType movement){
-            this->movement = movement;
-            previous = nullptr;
-            next = nullptr;
-        }
-    };
 
     Node* head;
     Node* tail;

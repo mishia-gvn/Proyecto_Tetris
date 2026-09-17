@@ -1,28 +1,14 @@
 #pragma once
+#include "Event.h"
 
 class ColaEvent{
-public:
-
-    enum EventType{
-        FALL,
-        LINE_CLEAR,
-        SPAWN
-    };
-
-    struct Event{
-        EventType type;
-        float triggerTime;
-    };
-
 private:
 
     struct Node{
         Event event;
         Node* next;
 
-        Node(Event event){
-            this->event = event;
-            next = nullptr;
+        Node(Event event) : event(event), next(nullptr){
         }
     };
 
@@ -43,8 +29,7 @@ public:
     void enqueue(Event event){
         Node* newNode = new Node(event);
 
-        if (frontNode == nullptr ||
-            event.triggerTime < frontNode->event.triggerTime){
+        if (frontNode == nullptr || event.triggerTime < frontNode->event.triggerTime){
             newNode->next = frontNode;
             frontNode = newNode;
             size++;
@@ -64,9 +49,18 @@ public:
         size++;
     }
 
-    Event dequeue(){
+    Event* front(){
         if (frontNode == nullptr){
-            return { SPAWN, 0.f };
+            return nullptr;
+        }
+
+        return &frontNode->event;
+    }
+
+    Event dequeue(){
+        if (frontNode == nullptr)
+        {
+            return Event(Event::SPAWN, 0.0f);
         }
 
         Node* temp = frontNode;
@@ -78,14 +72,6 @@ public:
         size--;
 
         return event;
-    }
-
-    Event* front(){
-        if (frontNode == nullptr){
-            return nullptr;
-        }
-
-        return &frontNode->event;
     }
 
     bool isEmpty() const{

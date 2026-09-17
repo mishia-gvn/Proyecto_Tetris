@@ -80,3 +80,10 @@ void RowList::setCell(int row, int column, int value){
 
     current->cells[column] = value;
 }
+
+void RowList::copyRow(int source, int destination){
+    for (int column = 0; column < BOARD_CELLS; column++) {
+        int value = getCell(source, column);
+        setCell(destination, column, value);
+    }
+}
