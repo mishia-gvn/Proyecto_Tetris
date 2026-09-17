@@ -10,7 +10,7 @@ using namespace std;
 
 // INTERFAZ
 constexpr int WINDOW_WIDTH = 1000;
-constexpr int WINDOW_HEIGHT = 1100;
+constexpr int WINDOW_HEIGHT = 950;
 
 constexpr int FPS = 60;
 constexpr float FRAME_TIME = 1.f / FPS;
@@ -19,6 +19,20 @@ constexpr float BLOCK_FALL_SPEED = 200.f;
 constexpr float BLOCK_MOVE_SPEED = 300.f;
 
 const string TITLE = "Tetris";
+
+// TABLERO
+constexpr int BOARD_ROWS = 20;
+constexpr int BOARD_CELLS = 10;
+
+constexpr int BLOCK_SIDE_SIZE = 46;
+constexpr int CELL_SIDE_SIZE = 46;
+constexpr int BOARD_X_START = 40;
+constexpr int BOARD_Y_START = 15;
+constexpr int BOARD_X_END = BOARD_X_START + BOARD_CELLS * CELL_SIDE_SIZE;
+constexpr int BOARD_Y_END = BOARD_Y_START + BOARD_ROWS * CELL_SIDE_SIZE;
+
+// PUNTAJES
+constexpr int SCORE = 100;
 
 // BOTONES
 constexpr int BUTTON_WIDTH = 150;
@@ -34,6 +48,15 @@ const sf::Color FONT_COLOR2 = sf::Color::Blue;
 constexpr int PIECE_TYPES = 7;
 constexpr int PIECE_ROTATIONS = 4;
 constexpr int PIECE_BLOCKS = 4;
+
+// TIPOS DE PIEZAS
+const int PIECE_I = 0;
+const int PIECE_O = 1;
+const int PIECE_T = 2;
+const int PIECE_J = 3;
+const int PIECE_L = 4;
+const int PIECE_S = 5;
+const int PIECE_Z = 6;
 
 // ROTACIONES DE PIEZAS
 const int PIECE_SHAPES[PIECE_TYPES][PIECE_ROTATIONS][PIECE_BLOCKS][2] = {
@@ -241,17 +264,3 @@ const int PIECE_SHAPES[PIECE_TYPES][PIECE_ROTATIONS][PIECE_BLOCKS][2] = {
     }
 };
 
-
-// TABLERO
-constexpr int BOARD_ROWS = 20;
-constexpr int BOARD_CELLS = 10;
-
-constexpr int BLOCK_SIDE_SIZE = 45;
-constexpr int CELL_SIDE_SIZE = 50;
-constexpr int BOARD_X_START = 350;
-constexpr int BOARD_Y_START = 160;
-constexpr int BOARD_X_END = BOARD_X_START + BOARD_CELLS * CELL_SIDE_SIZE;
-constexpr int BOARD_Y_END = BOARD_Y_START + BOARD_ROWS * CELL_SIDE_SIZE;
-
-// PUNTAJES
-constexpr int COMBO_SCORE = 10;

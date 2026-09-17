@@ -1,5 +1,7 @@
 #pragma once
 #include "Piece.h"
+#include "Constants.h"
+#include <cstdlib>
 
 class Cola {
 private:
@@ -83,8 +85,31 @@ public:
     }
 
     void clear(){
-        while (!isEmpty()){
-            dequeue();
-        }
+		Piece* piece = dequeue();
+		delete piece;
+    }
+
+    void fillBag() {
+        int bag[PIECE_TYPES] = {
+            PIECE_I,
+            PIECE_O,
+            PIECE_T,
+            PIECE_J,
+            PIECE_L,
+            PIECE_S,
+            PIECE_Z
+        };
+
+		for (int i = PIECE_TYPES - 1; i > 0; i--) {
+            int j = rand() % (i + 1);
+			
+			int temp = bag[i];
+			bag[i] = bag[j];
+			bag[j] = temp;
+		}
+
+		for (int i = 0; i < PIECE_TYPES; i++) {
+			enqueue(new Piece(bag[i]));
+		}
     }
 };

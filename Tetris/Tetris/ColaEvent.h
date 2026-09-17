@@ -8,8 +8,7 @@ private:
         Event event;
         Node* next;
 
-        Node(Event event) : event(event), next(nullptr){
-        }
+        Node(Event event) : event(event), next(nullptr) {}
     };
 
     Node* frontNode;
@@ -58,8 +57,7 @@ public:
     }
 
     Event dequeue(){
-        if (frontNode == nullptr)
-        {
+        if (frontNode == nullptr){
             return Event(Event::SPAWN, 0.0f);
         }
 

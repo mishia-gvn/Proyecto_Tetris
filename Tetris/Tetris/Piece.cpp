@@ -1,7 +1,8 @@
 #include "Piece.h"
 
-Piece::Piece(Type type){
+Piece::Piece(int type){
 	this->type = type;
+	color = rand() % 4;
 	
 	x = 3;
 	y = 0;
@@ -9,35 +10,41 @@ Piece::Piece(Type type){
 	rotation = 0;
 }
 
-//----------------------------------------------
-
-Type Piece::getType() const
-{
+int Piece::getType() const{
 	return type;
 }
 
-//----------------------------------------------
+int Piece::getColor() const {
+	return color;
+}
 
-int Piece::getX() const
-{
+int Piece::getX() const{
 	return x;
 }
 
-//----------------------------------------------
-
-int Piece::getY() const
-{
+int Piece::getY() const{
 	return y;
 }
 
-//----------------------------------------------
-
-int Piece::getRotation() const
-{
-	return rotation;
+void Piece::moveLeft() {
+	x--;
 }
 
-//----------------------------------------------
+void Piece::moveRight() {
+	x++;
+}
+
+void Piece::moveDown() {
+	y++;
+}
+
+void Piece::moveUp() {
+	y--;
+}
+
+void Piece::moveTo(int y) {
+	this->y = y;
+}
 
 void Piece::rotate(){
 	rotation++;
@@ -48,7 +55,13 @@ void Piece::rotate(){
 	}
 }
 
-//----------------------------------------------
+void Piece::setRotation(int rotation) {
+	this->rotation = rotation;
+}
+
+int Piece::getRotation() const{
+	return rotation;
+}
 
 Block Piece::getBlock(int index) const{
 	Block block;
@@ -58,3 +71,4 @@ Block Piece::getBlock(int index) const{
 
 	return block;
 }
+

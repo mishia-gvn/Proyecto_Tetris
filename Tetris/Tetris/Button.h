@@ -1,6 +1,5 @@
 #pragma once
 #include "Constants.h"
-#include <SFML/Graphics.hpp>
 
 class Button {
 private:

@@ -17,13 +17,12 @@ public:
         clear();
     }
 
-    bool push(Piece* newPiece){
+    void push(Piece* newPiece){
         if (isFull()){
-            return false;
+            return;
         }
 
         piece = newPiece;
-        return true;
     }
 
     Piece* pop(){

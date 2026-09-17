@@ -1,6 +1,5 @@
 #pragma once
-
-enum Type { I, J, L, O, S, T, Z };
+#include "Constants.h"
 
 struct Block {
 	int x;
@@ -9,7 +8,8 @@ struct Block {
 
 class Piece{
 private:
-	Type type;
+	int type;
+	int color;
 	
 	int x; 
 	int y;
@@ -17,15 +17,23 @@ private:
 	int rotation;
 	
 public:
-	Piece(Type type);
+	Piece(int type);
 
-	Type getType() const;
+	int getType() const;
+	int getColor() const;
 
 	int getX() const;
 	int getY() const;
 
-	int getRotation() const;
+	void moveLeft();
+	void moveRight();
+	void moveDown();
+	void moveUp();
+	void moveTo(int y);
+
 	void rotate();
+	void setRotation(int rotation);
+	int getRotation() const;
 
 	Block getBlock(int index) const;
 };

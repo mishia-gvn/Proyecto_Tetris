@@ -1,27 +1,27 @@
 #pragma once
 
-enum MovementType {
-    LEFT,
-    RIGHT,
-    DOWN,
-    ROTATE,
-    HARD_DROP
-};
-
-struct Node {
-    MovementType movement;
-    Node* previous;
-    Node* next;
-
-    Node(MovementType movement) {
-        this->movement = movement;
-        previous = nullptr;
-        next = nullptr;
-    }
-};
-
 class MovementList{
 private:
+
+    enum MovementType {
+        LEFT,
+        RIGHT,
+        DOWN,
+        ROTATE,
+        HARD_DROP
+    };
+
+    struct Node {
+        MovementType movement;
+        Node* previous;
+        Node* next;
+
+        Node(MovementType movement) {
+            this->movement = movement;
+            previous = nullptr;
+            next = nullptr;
+        }
+    };
 
     Node* head;
     Node* tail;
@@ -70,11 +70,7 @@ public:
     }
 
     bool undo(){
-        if (current == nullptr){
-            return false;
-        }
-
-        if (current->previous == nullptr){
+        if (current == nullptr || current->previous == nullptr) {
             return false;
         }
 
@@ -83,11 +79,7 @@ public:
     }
 
     bool redo(){
-        if (current == nullptr){
-            return false;
-        }
-
-        if (current->next == nullptr){
+        if (current == nullptr || current->next == nullptr){
             return false;
         }
 
