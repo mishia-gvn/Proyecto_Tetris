@@ -31,6 +31,15 @@ constexpr int BOARD_Y_START = 15;
 constexpr int BOARD_X_END = BOARD_X_START + BOARD_CELLS * CELL_SIDE_SIZE;
 constexpr int BOARD_Y_END = BOARD_Y_START + BOARD_ROWS * CELL_SIDE_SIZE;
 
+// TABLERO HOLD
+constexpr int HOLD_CELLS = 4;
+constexpr int HOLD_ROWS = 4;
+
+constexpr int HOLD_X_START = 700;
+constexpr int HOLD_Y_START = 15;
+constexpr int HOLD_X_END = HOLD_X_START + HOLD_CELLS * CELL_SIDE_SIZE;
+constexpr int HOLD_Y_END = HOLD_Y_START + HOLD_ROWS * CELL_SIDE_SIZE;
+
 // PUNTAJES
 constexpr int SCORE = 100;
 

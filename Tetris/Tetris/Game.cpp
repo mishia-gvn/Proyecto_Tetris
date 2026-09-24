@@ -44,6 +44,7 @@ void Game::run() {
 
 		renderer.drawBoard(*window, board);
 		renderer.drawPiece(*window, *currentPiece);
+		renderer.drawHold(*window, holdPiece);
 
 		window->display();
 		

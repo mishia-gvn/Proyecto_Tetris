@@ -52,3 +52,50 @@ void GameRenderer::drawPiece(sf::RenderTarget& target, const Piece& piece) const
 		target.draw(blockSprite);
 	}
 }
+
+void GameRenderer::drawHold(sf::RenderTarget& target, const Pila& holdPiece) const
+{
+	for (int row = 0; row < HOLD_ROWS; row++)
+	{
+		for (int col = 0; col < HOLD_CELLS; col++)
+		{
+			sf::RectangleShape cell;
+
+			cell.setSize(sf::Vector2f(BLOCK_SIDE_SIZE, BLOCK_SIDE_SIZE));
+
+			cell.setPosition(sf::Vector2f(
+				HOLD_X_START + col * CELL_SIDE_SIZE,
+				HOLD_Y_START + row * CELL_SIDE_SIZE));
+
+			cell.setFillColor(sf::Color::Black);
+			cell.setOutlineColor(sf::Color(80, 80, 80));
+			cell.setOutlineThickness(1.f);
+
+			target.draw(cell);
+		}
+	}
+
+	Piece* piece = holdPiece.top();
+
+	if (piece == nullptr)
+		return;
+
+	int color = piece->getColor();
+
+	for (int i = 0; i < PIECE_BLOCKS; i++)
+	{
+		Block block = piece->getBlock(i);
+
+		sf::Sprite blockSprite(blockTexture[color]);
+
+		blockSprite.setPosition(sf::Vector2f(
+			HOLD_X_START + block.x * CELL_SIDE_SIZE,
+			HOLD_Y_START + block.y * CELL_SIDE_SIZE));
+
+		blockSprite.setScale(sf::Vector2f(
+			static_cast<float>(BLOCK_SIDE_SIZE) / blockTexture[color].getSize().x,
+			static_cast<float>(BLOCK_SIDE_SIZE) /blockTexture[color].getSize().y));
+
+		target.draw(blockSprite);
+	}
+}
