@@ -1,8 +1,8 @@
 #include "GameRenderer.h"
 
 GameRenderer::GameRenderer() {
-	for (int i = 1; i <= PIECE_BLOCKS; i++) {
-		blockTexture[i].loadFromFile("assets/block/block_" + to_string(i) + ".png");
+	for (int i = 0; i < PIECE_BLOCKS; i++) {
+		blockTexture[i].loadFromFile("assets/block/block_" + to_string(i+1) + ".png");
 	}
 
 }
@@ -18,7 +18,7 @@ void  GameRenderer::drawBoard(sf::RenderTarget& target, const Board& board) cons
 			cell.setPosition(sf::Vector2f(BOARD_X_START + col * CELL_SIDE_SIZE,
 										  BOARD_Y_START + row * CELL_SIDE_SIZE));
 
-			if (board.getCell(col, row) != 0) {
+			if (board.getCell(row, col) != 0) {
 				cell.setFillColor(sf::Color::White);
 			}
 			else {

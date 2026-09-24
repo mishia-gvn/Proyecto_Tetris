@@ -30,6 +30,7 @@ public:
 	void moveDown();
 	void moveUp();
 	void moveTo(int y);
+	void resetPosition();
 
 	void rotate();
 	void setRotation(int rotation);

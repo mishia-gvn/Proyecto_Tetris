@@ -46,6 +46,12 @@ void Piece::moveTo(int y) {
 	this->y = y;
 }
 
+void Piece::resetPosition(){
+	x = 3;
+	y = 0;
+	rotation = 0;
+}
+
 void Piece::rotate(){
 	rotation++;
 

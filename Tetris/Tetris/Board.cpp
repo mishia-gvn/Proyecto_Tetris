@@ -29,7 +29,7 @@ void Board::placePiece(const Piece& piece){
 		int boardX = piece.getX() + block.x;
 		int boardY = piece.getY() + block.y;
 
-		rows.setCell(boardX, boardY, 1);
+		rows.setCell(boardY, boardX, 1);
 	}
 }
 

@@ -8,6 +8,8 @@ Game::Game() {
 	state = GameState::MENU;
 	score = 0;
 	canHold = true;
+	useHoldNext = false;
+	fallInterval = 0.8f;
 
 	nextPieces.fillBag();
 
@@ -24,31 +26,51 @@ void Game::run() {
 			if (event->is<sf::Event::Closed>()) {
 				window->close();
 			}
+			if (event->is<sf::Event::KeyPressed>()) {
+				auto keyPressed = event->getIf<sf::Event::KeyPressed>();
+
+				if (keyPressed != nullptr) {
+					handleKeyPress(keyPressed->code);
+				}
+			}
+		}
+
+		if (state == GameState::PLAYING && fallClock.getElapsedTime().asSeconds() >= fallInterval) {
+				moveDown();
+				fallClock.restart();
 		}
 
 		window->clear();
+
 		renderer.drawBoard(*window, board);
 		renderer.drawPiece(*window, *currentPiece);
+
 		window->display();
 		
 	}
 }
 
 void Game::spawnPiece() {
-	if (nextPieces.getSize() <= 3) {
-		nextPieces.fillBag();
+	if (useHoldNext && !holdPiece.isEmpty()) {
+		currentPiece = holdPiece.pop();
+		currentPiece->resetPosition();
+		useHoldNext = false;
 	}
-	delete currentPiece;
-	currentPiece = nextPieces.dequeue();
-
-	if (currentPiece != nullptr) {
-		canHold = true;
-		
-		if (board.gameOver(*currentPiece)) {
-			state = GameState::GAME_OVER;
+	else {
+		if (nextPieces.getSize() <= 3) {
+			nextPieces.fillBag();
 		}
-		else {
-			state = GameState::PLAYING;
+		currentPiece = nextPieces.dequeue();
+
+		if (currentPiece != nullptr) {
+			canHold = true;
+
+			if (board.gameOver(*currentPiece)) {
+				state = GameState::GAME_OVER;
+			}
+			else {
+				state = GameState::PLAYING;
+			}
 		}
 	}
 }
@@ -72,6 +94,37 @@ void Game::processEvent(){
 }
 
 void Game::handleKeyPress(const sf::Keyboard::Key key){
+	if (state != GameState::PLAYING) {
+		return;
+	}
+	switch (key) {
+	case sf::Keyboard::Key::Left:
+		moveLeft();
+		break;
+
+	case sf::Keyboard::Key::Right:
+		moveRight();
+		break;
+
+	case sf::Keyboard::Key::Down:
+		moveDown();
+		break;
+	
+	case sf::Keyboard::Key::Up:	
+		rotate();
+		break;
+
+	case sf::Keyboard::Key::Space:
+		hardDrop();
+		break;
+
+	case sf::Keyboard::Key::H:
+		hold();
+		break;
+
+	default:
+		break;
+	}
 }
 
 void Game::moveLeft(){
@@ -127,13 +180,18 @@ void Game::hold(){
 
 	if (holdPiece.isEmpty()) {
 		holdPiece.push(currentPiece);
+
 		currentPiece = nextPieces.dequeue();
+
+		if (nextPieces.getSize() <= 3) {
+			nextPieces.fillBag();
+		}
 	}
+
 	else {
-		Piece* temp = holdPiece.pop();
-		holdPiece.push(currentPiece);
-		currentPiece = temp;
+		useHoldNext = true;
 	}
+
 	canHold = false;
 }
 

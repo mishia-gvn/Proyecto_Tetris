@@ -43,6 +43,10 @@ private:
 
 	int score;
 	bool canHold;
+	bool useHoldNext;
+
+	sf::Clock fallClock;
+	float fallInterval;
 
 	void spawnPiece();
 	void lockPiece();

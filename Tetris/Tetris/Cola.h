@@ -32,18 +32,17 @@ public:
         clear();
     }
 
-    void enqueue(Piece* piece){
+    void enqueue(Piece* piece) {
         Node* newNode = new Node(piece);
 
-        if (backNode == nullptr){
+        if (backNode == nullptr) {
             frontNode = newNode;
             backNode = newNode;
         }
-        else{
+        else {
             backNode->next = newNode;
             backNode = newNode;
         }
-
         size++;
     }
 
@@ -85,8 +84,10 @@ public:
     }
 
     void clear(){
-		Piece* piece = dequeue();
-		delete piece;
+        while (!isEmpty()) {
+            Piece* piece = dequeue();
+            delete piece;
+        }
     }
 
     void fillBag() {
