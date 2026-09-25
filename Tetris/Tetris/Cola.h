@@ -1,7 +1,6 @@
 #pragma once
 #include "Piece.h"
 #include "Constants.h"
-#include <cstdlib>
 
 class Cola {
 private:
@@ -23,6 +22,8 @@ private:
 public:
 
     Cola(){
+        srand(static_cast<unsigned>(time(nullptr)));
+
         frontNode = nullptr;
         backNode = nullptr;
         size = 0;

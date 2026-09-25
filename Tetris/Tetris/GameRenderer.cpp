@@ -132,33 +132,90 @@ GameRenderer::~GameRenderer(){
 	delete gameOverMenuButton;
 }
 
-void  GameRenderer::drawBoard(sf::RenderTarget& target, const Board& board) const {
+void GameRenderer::drawBoard(sf::RenderTarget& target,
+	const Board& board, int darkness,
+	bool lineClearAnimating, float animationTime) const {
+
 	for (int row = 0; row < BOARD_ROWS; row++) {
 		for (int col = 0; col < BOARD_CELLS; col++) {
-			
+
 			sf::RectangleShape cell;
 
-			cell.setSize(sf::Vector2f(BLOCK_SIDE_SIZE, BLOCK_SIDE_SIZE));
+			cell.setSize(sf::Vector2f(
+				BLOCK_SIDE_SIZE,
+				BLOCK_SIDE_SIZE));
 
-			cell.setPosition(sf::Vector2f(BOARD_X_START + col * CELL_SIDE_SIZE,
-										  BOARD_Y_START + row * CELL_SIDE_SIZE));
+			cell.setPosition(sf::Vector2f(
+				BOARD_X_START + col * CELL_SIDE_SIZE,
+				BOARD_Y_START + row * CELL_SIDE_SIZE));
 
-			if (board.getCell(row, col) != 0) {
-				cell.setFillColor(sf::Color::White);
-			}
-			else {
-				cell.setFillColor(sf::Color::Black);
-			}
-
+			cell.setFillColor(sf::Color::Black);
 			cell.setOutlineColor(sf::Color(80, 80, 80));
 			cell.setOutlineThickness(1.f);
 
+			int cellValue = board.getCell(row, col);
+
 			target.draw(cell);
+
+			if (cellValue != 0) {
+
+				int color = cellValue - 1;
+
+				sf::Sprite blockSprite(blockTexture[color]);
+
+				blockSprite.setColor(
+					sf::Color(darkness, darkness, darkness));
+
+				blockSprite.setPosition(sf::Vector2f(
+					BOARD_X_START + col * CELL_SIDE_SIZE,
+					BOARD_Y_START + row * CELL_SIDE_SIZE));
+
+				blockSprite.setScale(sf::Vector2f(
+					static_cast<float>(BLOCK_SIDE_SIZE) /
+					blockTexture[color].getSize().x,
+
+					static_cast<float>(BLOCK_SIDE_SIZE) /
+					blockTexture[color].getSize().y));
+
+				target.draw(blockSprite);
+
+				// Detectar si la fila está completa
+				bool fullRow = true;
+
+				for (int c = 0; c < BOARD_CELLS; c++) {
+					if (board.getCell(row, c) == 0) {
+						fullRow = false;
+						break;
+					}
+				}
+
+				// Efecto de parpadeo
+				if (lineClearAnimating && fullRow) {
+
+					if (static_cast<int>(animationTime * 5) % 2 == 0) {
+
+						sf::RectangleShape flash;
+
+						flash.setSize(sf::Vector2f(
+							BLOCK_SIDE_SIZE,
+							BLOCK_SIDE_SIZE));
+
+						flash.setPosition(sf::Vector2f(
+							BOARD_X_START + col * CELL_SIDE_SIZE,
+							BOARD_Y_START + row * CELL_SIDE_SIZE));
+
+						flash.setFillColor(
+							sf::Color(255, 255, 255, 220));
+
+						target.draw(flash);
+					}
+				}
+			}
 		}
 	}
 }
 
-void GameRenderer::drawPiece(sf::RenderTarget& target, const Piece& piece) const {
+void GameRenderer::drawPiece(sf::RenderTarget& target, const Piece& piece, int darkness) const {
 	int color = piece.getColor();
 	
 	for (int i = 0; i < PIECE_BLOCKS; i++) {
@@ -168,6 +225,9 @@ void GameRenderer::drawPiece(sf::RenderTarget& target, const Piece& piece) const
 		int blockY = piece.getY() + block.y;
 
 		sf::Sprite blockSprite(blockTexture[color]);
+
+		blockSprite.setColor(sf::Color(darkness, darkness, darkness));
+
 		blockSprite.setPosition(sf::Vector2f(BOARD_X_START + blockX * CELL_SIDE_SIZE,
 											 BOARD_Y_START + blockY * CELL_SIDE_SIZE));
 		blockSprite.setScale(sf::Vector2f(
@@ -178,7 +238,7 @@ void GameRenderer::drawPiece(sf::RenderTarget& target, const Piece& piece) const
 	}
 }
 
-void GameRenderer::drawHold(sf::RenderTarget& target, const Pila& holdPiece) const
+void GameRenderer::drawHold(sf::RenderTarget& target, const Pila& holdPiece, int darkness) const
 {
 	for (int row = 0; row < HOLD_ROWS; row++)
 	{
@@ -212,6 +272,8 @@ void GameRenderer::drawHold(sf::RenderTarget& target, const Pila& holdPiece) con
 		Block block = piece->getBlock(i);
 
 		sf::Sprite blockSprite(blockTexture[color]);
+		
+		blockSprite.setColor(sf::Color(darkness, darkness, darkness));
 
 		blockSprite.setPosition(sf::Vector2f(
 			HOLD_X_START + block.x * SECONDARY_CELL_SIZE,
@@ -225,7 +287,7 @@ void GameRenderer::drawHold(sf::RenderTarget& target, const Pila& holdPiece) con
 	}
 }
 
-void GameRenderer::drawNext(sf::RenderTarget& target, const Cola& nextPiece) const{
+void GameRenderer::drawNext(sf::RenderTarget& target, const Cola& nextPiece, int darkness) const{
 	for (int row = 0; row < NEXT_ROWS; row++) {
 		for (int col = 0; col < NEXT_CELLS; col++){
 			sf::RectangleShape cell;
@@ -255,6 +317,8 @@ void GameRenderer::drawNext(sf::RenderTarget& target, const Cola& nextPiece) con
 			Block block = piece->getBlock(j);
 
 			sf::Sprite blockSprite(blockTexture[color]);
+
+			blockSprite.setColor(sf::Color(darkness, darkness, darkness));
 
 			blockSprite.setPosition(sf::Vector2f(
 				NEXT_X_START + block.x * SECONDARY_CELL_SIZE,

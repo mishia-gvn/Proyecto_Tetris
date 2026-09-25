@@ -6,7 +6,9 @@ struct Event
     {
         FALL,
         LINE_CLEAR,
-        SPAWN
+        SPAWN,
+        SPEED_UP,
+        DARKEN
     };
 
     Type type;

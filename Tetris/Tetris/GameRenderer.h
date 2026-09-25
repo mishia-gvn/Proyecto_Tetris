@@ -35,10 +35,10 @@ public:
 
 	~GameRenderer();
 
-	void drawBoard(sf::RenderTarget& target, const Board& board) const;
-	void drawPiece(sf::RenderTarget& target, const Piece& piece) const;
-	void drawHold(sf::RenderTarget& target, const Pila& holdPiece) const;
-	void drawNext(sf::RenderTarget& target, const Cola& nextPiece) const;
+	void drawBoard(sf::RenderTarget& target, const Board& board, int darkness, bool lineClearAnimating, float animationTime) const;
+	void drawPiece(sf::RenderTarget& target, const Piece& piece, int darkness) const;
+	void drawHold(sf::RenderTarget& target, const Pila& holdPiece, int darkness) const;
+	void drawNext(sf::RenderTarget& target, const Cola& nextPiece, int darkness) const;
 
 	void drawPlayerInfo(sf::RenderTarget& target, int score, sf::Font& font) const;
 

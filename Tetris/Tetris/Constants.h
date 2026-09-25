@@ -13,6 +13,8 @@ constexpr int WINDOW_WIDTH = 1000;
 constexpr int WINDOW_HEIGHT = 960;
 
 constexpr float FALL_INTERVAL = 0.8f;
+const float SPEED_UP_INTERVAL = 1000.0f;
+const float MIN_FALL_INTERVAL = 0.10f;
 
 const string TITLE = "Tetris";
 

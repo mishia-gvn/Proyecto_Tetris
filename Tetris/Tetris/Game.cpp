@@ -21,6 +21,7 @@ Game::Game() {
 	useHoldNext = false;
 	
 	fallInterval = FALL_INTERVAL;
+	darkness = 255;
 
 	nextPieces.fillBag();
 }
@@ -34,9 +35,34 @@ Game::~Game() {
 void Game::run() {
 	while (window->isOpen()) {
 		processEvents();
-		if (state == GameState::PLAYING && fallClock.getElapsedTime().asSeconds() >= fallInterval) {
-			moveDown();
-			fallClock.restart();
+
+		if (state == GameState::PLAYING) {
+
+			if (lineClearAnimating) {
+
+				if (lineClearClock.getElapsedTime().asSeconds() >= 0.8f) {
+					board.clear();
+
+					score += SCORE * pendingClearedRows
+						+ MULTI_ROW_BONUS * (pendingClearedRows - 1);
+
+					lineClearAnimating = false;
+					pendingClearedRows = 0;
+
+					spawnPiece();
+					fallClock.restart();
+				}
+
+			}
+			else {
+
+				processEvent();
+
+				if (fallClock.getElapsedTime().asSeconds() >= fallInterval) {
+					moveDown();
+					fallClock.restart();
+				}
+			}
 		}
 		render();
 	}
@@ -129,10 +155,14 @@ void Game::render(){
 		break;
 
 	case GameState::PLAYING:
-		renderer->drawBoard(*window, board);
-		renderer->drawPiece(*window, *currentPiece);
-		renderer->drawHold(*window, holdPiece);
-		renderer->drawNext(*window, nextPieces);
+		renderer->drawBoard(*window, board, darkness, lineClearAnimating, 
+							 lineClearClock.getElapsedTime().asSeconds());
+
+		if (currentPiece != nullptr) {
+			renderer->drawPiece(*window, *currentPiece, darkness);
+		}
+		renderer->drawHold(*window, holdPiece, darkness);
+		renderer->drawNext(*window, nextPieces, darkness);
 		renderer->drawPlayerInfo(*window, score, font1);
 		break;
 
@@ -152,6 +182,10 @@ void Game::startGame(){
 	score = 0;
 	canHold = true;
 	useHoldNext = false;
+	fallInterval = FALL_INTERVAL;
+	darkness = 255;
+
+	scheduleEvents();
 
 	holdPiece.clear();
 
@@ -214,19 +248,39 @@ void Game::spawnPiece() {
 
 void Game::lockPiece() {
 	board.placePiece(*currentPiece);
-
 	delete currentPiece;
 	currentPiece = nullptr;
 
 	clearRows();
-	spawnPiece();
+
+	if (!lineClearAnimating) {
+		spawnPiece();
+	}
 }
 
 void Game::clearRows() {
-	int clearedRows = board.clear();
+	int clearedRows = 0;
 
-	if (clearedRows > 0){
-		score += SCORE * clearedRows + MULTI_ROW_BONUS * (clearedRows - 1);
+	for (int row = 0; row < BOARD_ROWS; row++) {
+
+		bool full = true;
+
+		for (int col = 0; col < BOARD_CELLS; col++) {
+			if (board.getCell(row, col) == 0) {
+				full = false;
+				break;
+			}
+		}
+
+		if (full) {
+			clearedRows++;
+		}
+	}
+
+	if (clearedRows > 0) {
+		pendingClearedRows = clearedRows;
+		lineClearAnimating = true;
+		lineClearClock.restart();
 	}
 }
 
@@ -235,13 +289,53 @@ void Game::saveScore(){
 	scoreManager.save();
 }
 
-void Game::processEvent(){
+void Game::processEvent() {
+	while (!eventHistory.isEmpty()) {
+
+		Event* event = eventHistory.front();
+
+		if (event == nullptr || score < event->triggerTime) {
+			break;
+		}
+
+		Event currentEvent = eventHistory.dequeue();
+
+		if (currentEvent.type == Event::SPEED_UP) {
+			fallInterval -= 0.10f;
+
+			if (fallInterval < MIN_FALL_INTERVAL) {
+				fallInterval = MIN_FALL_INTERVAL;
+			}
+		}
+
+		else if (currentEvent.type == Event::DARKEN) {
+			darkness -= 50;
+
+			if (darkness < 140) {
+				darkness = 140;
+			}
+		}
+	}
+}
+
+void Game::scheduleEvents(){
+	eventHistory.clear();
+
+	for (int points = 2000; points <= 10000; points += 1000) {
+		eventHistory.enqueue(Event(Event::SPEED_UP, points));
+		eventHistory.enqueue(Event(Event::DARKEN, points));
+	}
 }
 
 void Game::handleKeyPress(const sf::Keyboard::Key key){
 	if (state != GameState::PLAYING) {
 		return;
 	}
+
+	if (lineClearAnimating) {
+		return;
+	}
+
 	switch (key) {
 	case sf::Keyboard::Key::Left:
 		moveLeft();

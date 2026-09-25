@@ -24,5 +24,6 @@ public:
 	void setCell(int row, int col, int value);	
 
 	bool gameOver(const Piece& piece) const;
+
 };
 

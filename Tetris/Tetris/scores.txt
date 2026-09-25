@@ -1,4 +1,10 @@
+gv|3600
 mishia|3000
-mg|1500
-gabi|0
+gn|2800
+mish|2100
+mv|2000
 mg|1800
+mg|1500
+mish|900
+nv|3300
+gabi|0

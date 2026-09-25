@@ -51,6 +51,11 @@ private:
 
 	sf::Clock fallClock;
 	float fallInterval;
+	int darkness;
+
+	bool lineClearAnimating;
+	sf::Clock lineClearClock;
+	int pendingClearedRows;
 
 	void processEvents();
 	void handleMouseClick(const sf::Event::MouseButtonPressed& mousePressed);
@@ -61,10 +66,13 @@ private:
 
 	void spawnPiece();
 	void lockPiece();
+	
 	void clearRows();
+
 	void saveScore();
 
 	void processEvent();
+	void scheduleEvents();
 	void handleKeyPress(const sf::Keyboard::Key key);
 
 	void moveLeft();

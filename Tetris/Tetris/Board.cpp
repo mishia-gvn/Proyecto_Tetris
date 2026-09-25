@@ -33,13 +33,15 @@ bool Board::canPlacePiece(const Piece& piece) const{
 }
 
 void Board::placePiece(const Piece& piece){
+	int color = piece.getColor() + 1;
+
 	for (int i = 0; i < PIECE_BLOCKS;i++) {
 		Block block = piece.getBlock(i);
 
 		int boardX = piece.getX() + block.x;
 		int boardY = piece.getY() + block.y;
 
-		rows.setCell(boardY, boardX, 1);
+		rows.setCell(boardY, boardX, color);
 	}
 }
 
