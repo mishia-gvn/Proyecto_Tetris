@@ -25,5 +25,6 @@ public:
 	void setCell(int row, int col, int value);
 
 	void copyRow(int source, int destination);
+	void removeRow(int row);
 };
 

@@ -13,6 +13,8 @@ public:
 
 	Board();
 
+	void reset();
+
 	bool canPlacePiece(const Piece& piece) const;
 	void placePiece(const Piece& piece);
 

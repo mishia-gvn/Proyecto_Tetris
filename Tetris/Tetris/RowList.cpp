@@ -87,3 +87,31 @@ void RowList::copyRow(int source, int destination){
         setCell(destination, column, value);
     }
 }
+
+void RowList::removeRow(int row){
+    if (row < 0 || row >= size)
+        return;
+
+    Row* current = head;
+    Row* previous = nullptr;
+
+    for (int i = 0; i < row; i++){
+        previous = current;
+        current = current->next;
+    }
+
+    if (previous == nullptr){
+        head = current->next;
+    }
+    else{
+        previous->next = current->next;
+    }
+
+    delete current;
+    size--;
+
+    Row* newRow = new Row();
+    newRow->next = head;
+    head = newRow;
+    size++;
+}

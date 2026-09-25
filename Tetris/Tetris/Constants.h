@@ -10,13 +10,9 @@ using namespace std;
 
 // INTERFAZ
 constexpr int WINDOW_WIDTH = 1000;
-constexpr int WINDOW_HEIGHT = 950;
+constexpr int WINDOW_HEIGHT = 960;
 
-constexpr int FPS = 60;
-constexpr float FRAME_TIME = 1.f / FPS;
-
-constexpr float BLOCK_FALL_SPEED = 200.f;
-constexpr float BLOCK_MOVE_SPEED = 300.f;
+constexpr float FALL_INTERVAL = 0.8f;
 
 const string TITLE = "Tetris";
 
@@ -27,21 +23,33 @@ constexpr int BOARD_CELLS = 10;
 constexpr int BLOCK_SIDE_SIZE = 46;
 constexpr int CELL_SIDE_SIZE = 46;
 constexpr int BOARD_X_START = 40;
-constexpr int BOARD_Y_START = 15;
-constexpr int BOARD_X_END = BOARD_X_START + BOARD_CELLS * CELL_SIDE_SIZE;
-constexpr int BOARD_Y_END = BOARD_Y_START + BOARD_ROWS * CELL_SIDE_SIZE;
+constexpr int BOARD_Y_START = 30;
+
+// TABLEROS SECUNDARIOS
+constexpr int SECONDARY_BLOCK_SIZE = 30;
+constexpr int SECONDARY_CELL_SIZE = 30;
 
 // TABLERO HOLD
 constexpr int HOLD_CELLS = 4;
 constexpr int HOLD_ROWS = 4;
 
-constexpr int HOLD_X_START = 700;
-constexpr int HOLD_Y_START = 15;
-constexpr int HOLD_X_END = HOLD_X_START + HOLD_CELLS * CELL_SIDE_SIZE;
-constexpr int HOLD_Y_END = HOLD_Y_START + HOLD_ROWS * CELL_SIDE_SIZE;
+constexpr int HOLD_X_START = 550;
+constexpr int HOLD_Y_START = 100;
+
+// TABLERO NEXT
+constexpr int NEXT_CELLS = 4;
+constexpr int NEXT_ROWS = 14;
+
+constexpr int NEXT_X_START = 550;
+constexpr int NEXT_Y_START = 304;
 
 // PUNTAJES
 constexpr int SCORE = 100;
+constexpr int MULTI_ROW_BONUS = 200;
+constexpr int SCORE_Y_START = 250;
+
+constexpr int MAX_SCORES = 10;
+const string SCORE_FILE = "scores.txt";
 
 // BOTONES
 constexpr int BUTTON_WIDTH = 150;
@@ -52,6 +60,28 @@ constexpr int TEXT_NORMAL_SIZE = 24;
 constexpr int TEXT_BIG_SIZE = 51;
 const sf::Color FONT_COLOR = sf::Color::White;
 const sf::Color FONT_COLOR2 = sf::Color::Blue;
+
+// INFORMACION DE JUGADOR
+constexpr int PLAYER_NAME_BOX_WIDTH = 300;
+constexpr int PLAYER_NAME_BOX_HEIGHT = 45;
+constexpr int PLAYER_NAME_BOX_Y = 210;
+constexpr int PLAYER_NAME_BOX_X = 650;
+
+constexpr int PLAYER_NAME_TEXT_X_OFFSET = 10;
+constexpr int PLAYER_NAME_TEXT_Y_OFFSET = 5;
+
+constexpr int PLAYER_NAME_LABEL_Y = 150;
+
+constexpr int MAX_PLAYER_NAME = 15;
+
+constexpr int PLAYER_INFO_X_START = 760;
+constexpr int PLAYER_INFO_Y_START = 140;
+
+constexpr int PAUSE_BUTTON_X = 760;
+constexpr int PAUSE_BUTTON_Y = 330;
+
+constexpr int MENU_BUTTON_X = 760;
+constexpr int MENU_BUTTON_Y = 400;
 
 // PIEZAS
 constexpr int PIECE_TYPES = 7;

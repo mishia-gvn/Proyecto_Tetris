@@ -22,7 +22,7 @@
     <Filter Include="Interface">
       <UniqueIdentifier>{524f4b7c-eed2-4ef7-a117-ac432acb7135}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sorting">
+    <Filter Include="Players">
       <UniqueIdentifier>{ea7866f7-3440-481c-9374-fe4cc800e484}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -84,10 +84,13 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Sorting.h">
-      <Filter>Sorting</Filter>
+      <Filter>Players</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreManager.h">
+      <Filter>Players</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

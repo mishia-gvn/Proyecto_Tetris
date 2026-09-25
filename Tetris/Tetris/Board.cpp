@@ -2,6 +2,16 @@
 
 Board::Board(){}
 
+void Board::reset(){
+	for (int row = 0; row < BOARD_ROWS; row++)
+	{
+		for (int column = 0; column < BOARD_CELLS; column++)
+		{
+			rows.setCell(row, column, 0);
+		}
+	}
+}
+
 bool Board::canPlacePiece(const Piece& piece) const{
 	for (int i = 0; i < PIECE_BLOCKS;i++) {
 		Block block = piece.getBlock(i);
@@ -43,13 +53,7 @@ bool Board::isFull(int row) const{
 }
 
 void Board::removeRow(int row){
-	for (int currentRow = row; currentRow > 0; currentRow--) {
-		rows.copyRow(currentRow - 1, currentRow);
-	}
-
-	for (int column = 0; column < BOARD_CELLS; column++) {
-		rows.setCell(0, column, 0);
-	}
+	rows.removeRow(row);
 }
 
 int Board::clear(){

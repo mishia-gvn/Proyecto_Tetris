@@ -6,6 +6,7 @@
 #include "Pila.h"
 #include "MovementList.h"
 #include "GameRenderer.h"
+#include "ScoreManager.h"
 
 enum class GameState {
 	MENU,
@@ -27,7 +28,7 @@ private:
 	sf::Clock pauseClock;
 	sf::Font font1, font2;
 
-	GameRenderer renderer;
+	GameRenderer* renderer;
 
 	Board board;
 
@@ -42,15 +43,26 @@ private:
 	GameState state;
 
 	int score;
+	string playerName;
+	ScoreManager scoreManager;
+
 	bool canHold;
 	bool useHoldNext;
 
 	sf::Clock fallClock;
 	float fallInterval;
 
+	void processEvents();
+	void handleMouseClick(const sf::Event::MouseButtonPressed& mousePressed);
+	void render();
+
+	void startGame();
+	void resetGame();
+
 	void spawnPiece();
 	void lockPiece();
 	void clearRows();
+	void saveScore();
 
 	void processEvent();
 	void handleKeyPress(const sf::Keyboard::Key key);
@@ -62,5 +74,6 @@ private:
 	void rotate();
 	void hold();
 
+	void handleTextEntered(const sf::Event::TextEntered& event);
 };
 

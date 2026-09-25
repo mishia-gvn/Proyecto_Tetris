@@ -74,6 +74,18 @@ public:
         return frontNode->piece;
     }
 
+	Piece* getAt(int index) const {
+		if (index < 0 || index >= size) {
+			return nullptr;
+		}
+		Node* current = frontNode;
+
+		for (int i = 0; i < index; i++) {
+			current = current->next;
+		}
+		return current->piece;
+	}
+
     bool isEmpty() const{
         return frontNode == nullptr;
     }

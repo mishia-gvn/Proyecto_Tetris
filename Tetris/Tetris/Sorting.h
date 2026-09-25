@@ -1,70 +1,80 @@
 #pragma once
+#include <string>
 
-void swap(int& a, int& b) {
-	int temp = a;
-	a = b;
-	b = temp;
+struct PlayersScore {
+    std::string name;
+    int score;
+};
+
+inline void swap(PlayersScore& a, PlayersScore& b) {
+    PlayersScore temp = a;
+    a = b;
+    b = temp;
 }
 
-void insertionSort(int A[], int n, long& comparaciones, long& movimientos) {
+inline void insertionSort(PlayersScore player[], int n, long& comparaciones, long& movimientos) {
 
     comparaciones = 0;
     movimientos = 0;
 
     for (int i = 1; i < n; i++) {
 
-        int clave = A[i];
+        PlayersScore clave = player[i];
 
         int j = i - 1;
 
         while (j >= 0) {
 
             comparaciones++;
-            if (A[j] > clave) {
+
+            if (player[j].score < clave.score) {
 
                 movimientos++;
 
-                A[j + 1] = A[j];
-                j = j - 1;
+                player[j + 1] = player[j];
+                j--;
             }
             else {
                 break;
             }
         }
 
-        A[j + 1] = clave;
+        player[j + 1] = clave;
 
         movimientos++;
     }
 }
 
-void quickSort(int A[], int left, int right,
-    long& comparaciones, long& intercambios){
-    if (left >= right){
+inline void quickSort(PlayersScore player[], int left, int right, long& comparaciones, long& intercambios) {
+
+    if (left >= right) {
         return;
     }
 
     int i = left;
     int j = right;
-    int pivot = A[(left + right) / 2];
 
-    while (i <= j){
-        while (A[i] < pivot){
+    int pivot = player[(left + right) / 2].score;
+
+    while (i <= j) {
+
+        while (player[i].score > pivot) {
             comparaciones++;
             i++;
         }
 
         comparaciones++;
 
-        while (A[j] > pivot){
+        while (player[j].score < pivot) {
             comparaciones++;
             j--;
         }
 
         comparaciones++;
 
-        if (i <= j){
-            swap(A[i], A[j]);
+        if (i <= j) {
+
+            swap(player[i], player[j]);
             intercambios++;
 
             i++;
@@ -72,11 +82,11 @@ void quickSort(int A[], int left, int right,
         }
     }
 
-    if (left < j){
-        quickSort(A, left, j, comparaciones, intercambios);
+    if (left < j) {
+        quickSort(player, left, j, comparaciones, intercambios);
     }
 
-    if (i < right){
-        quickSort(A, i, right, comparaciones, intercambios);
+    if (i < right) {
+        quickSort(player, i, right, comparaciones, intercambios);
     }
 }
