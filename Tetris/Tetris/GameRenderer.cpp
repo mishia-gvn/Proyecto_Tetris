@@ -11,21 +11,21 @@ GameRenderer::GameRenderer(sf::RenderWindow* window, sf::Font& font1, sf::Font& 
 		font1,
 		"TETRIS",
 		TEXT_BIG_SIZE,
-		sf::Vector2f(BOARD_X_START + 100, 180),
+		sf::Vector2f(BOARD_X_START + 100, 100),
 		FONT_COLOR);
 
 	sortingText = new GameText(
 		font1,
 		"",
 		TEXT_NORMAL_SIZE,
-		sf::Vector2f(650, 700),
+		sf::Vector2f(600, 630),
 		FONT_COLOR);
 
 	playButton = new Button(
 		font1,
 		"JUGAR",
 		sf::Vector2f(BUTTON_WIDTH, BUTTON_HEIGHT),
-		sf::Vector2f(BOARD_X_START + 125, 300),
+		sf::Vector2f(BOARD_X_START + 125, 200),
 		sf::Color(80, 80, 80),
 		TEXT_NORMAL_SIZE);
 
@@ -39,13 +39,13 @@ GameRenderer::GameRenderer(sf::RenderWindow* window, sf::Font& font1, sf::Font& 
 	insertionSortButton = new Button(
 		font1, "INSERTION",
 		sf::Vector2f(BUTTON_WIDTH, BUTTON_HEIGHT),
-		sf::Vector2f(650, 390),
+		sf::Vector2f(600, 550),
 		sf::Color(80, 80, 80), TEXT_NORMAL_SIZE);
 
 	quickSortButton = new Button(
 		font1, "QUICK SORT",
 		sf::Vector2f(BUTTON_WIDTH, BUTTON_HEIGHT),
-		sf::Vector2f(810, 390),
+		sf::Vector2f(770, 550),
 		sf::Color(80, 80, 80), TEXT_NORMAL_SIZE);
 
 	// PANTALLA DE JUEGO
@@ -332,12 +332,27 @@ void GameRenderer::drawNext(sf::RenderTarget& target, const Cola& nextPiece, int
 	}
 }
 
-void GameRenderer::drawPlayerInfo(sf::RenderTarget& target, int score, sf::Font& font) const{
-	playerText->draw(target);
+void GameRenderer::drawPlayerInfo(
+	sf::RenderTarget& target,
+	const string& playerName,
+	int score,
+	sf::Font& font) const {
+
+	GameText playerInfo(
+		font,
+		"Jugador: " + playerName,
+		TEXT_NORMAL_SIZE,
+		sf::Vector2f(PLAYER_INFO_X_START, PLAYER_INFO_Y_START),
+		FONT_COLOR);
+
+	playerInfo.draw(target);
 
 	GameText scoreText(
-		font, "Score: " + to_string(score), TEXT_NORMAL_SIZE, 
-		sf::Vector2f(PLAYER_INFO_X_START, SCORE_Y_START), FONT_COLOR);
+		font,
+		"Score: " + to_string(score),
+		TEXT_NORMAL_SIZE,
+		sf::Vector2f(PLAYER_INFO_X_START, SCORE_Y_START),
+		FONT_COLOR);
 
 	scoreText.draw(target);
 
@@ -403,7 +418,7 @@ void GameRenderer::drawScores(const ScoreManager& scoreManager) const {
 		font1,
 		"TOP 10",
 		TEXT_NORMAL_SIZE,
-		sf::Vector2f(650, 450),
+		sf::Vector2f(200, 430),
 		FONT_COLOR);
 
 	title.draw(*window);
@@ -416,7 +431,7 @@ void GameRenderer::drawScores(const ScoreManager& scoreManager) const {
 			font1,
 			to_string(i + 1) + ". " + player.name + " - " + to_string(player.score),
 			TEXT_NORMAL_SIZE,
-			sf::Vector2f(700, 500 + i * 40),
+			sf::Vector2f(180, 480 + i * 40),
 			FONT_COLOR);
 
 		scoreText.draw(*window);

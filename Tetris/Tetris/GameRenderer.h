@@ -40,8 +40,7 @@ public:
 	void drawHold(sf::RenderTarget& target, const Pila& holdPiece, int darkness) const;
 	void drawNext(sf::RenderTarget& target, const Cola& nextPiece, int darkness) const;
 
-	void drawPlayerInfo(sf::RenderTarget& target, int score, sf::Font& font) const;
-
+	void drawPlayerInfo(sf::RenderTarget& target, const string& playerName,int score, sf::Font& font) const;
 	void drawMenu(const string& playerName, const ScoreManager& scoreManager) const;
 	void drawPaused() const;
 	void drawGameOver(int score, sf::Font& font) const;

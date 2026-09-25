@@ -163,7 +163,7 @@ void Game::render(){
 		}
 		renderer->drawHold(*window, holdPiece, darkness);
 		renderer->drawNext(*window, nextPieces, darkness);
-		renderer->drawPlayerInfo(*window, score, font1);
+		renderer->drawPlayerInfo(*window, playerName, score, font1);
 		break;
 
 	case GameState::PAUSED:
